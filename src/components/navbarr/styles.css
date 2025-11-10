@@ -1,0 +1,170 @@
+/* Base navbar styling */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgb(243, 239, 239);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+.mobile-logo {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: black;
+  outline: none;
+}
+
+.navbar.hidden {
+  transform: translateY(-100%);
+}
+
+.navbar.visible {
+  transform: translateY(0);
+}
+
+/* Left Section (Menu Icon on mobile) */
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: black;
+  outline: none;
+}
+.menu-icon:focus {
+  outline: none; /* Extra safety for focus state */
+  border: none; /* Ensures no border */
+}
+
+.menu-icon:active {
+  outline: none;
+  border: none;
+}
+
+/* Logo */
+.navbar-logo img {
+  margin-left: 10px;
+  border-radius: 50%;
+  height: 45px;
+}
+
+/* Nav Links */
+.nav-items {
+  display: flex;
+  gap: 24px;
+  color: black;
+}
+
+.nav-items a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-items a:hover {
+  color: #ff4d6d;
+}
+
+/* Icons */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: 90px;
+  color: black;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------- Mobile View ---------- */
+@media (max-width: 768px) {
+  .navbar-logo {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+    outline: none;
+  }
+  .mobile-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden; /* ensures circular clip for images */
+  display: flex;
+  margin-left: 10px;
+  }
+  .menu-icon {
+    display: block;
+
+    left: 0;
+    top: 0;
+    padding: 10px 0;
+    margin: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+  }
+
+  .navbar {
+    /* background: yellow; */
+    padding: 17px 24px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-icons {
+    position: absolute;
+    top: 24px;
+    right: 10px;
+    margin-right: 0 !important;
+  }
+
+  .nav-items {
+    flex-direction: column;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .nav-items.open {
+    max-height: 200px; /* adjust if needed */
+  }
+
+  .nav-items a {
+    padding: 10px 0;
+    width: 100%;
+    border-top: 1px solid #eee;
+    text-align: center;
+  }
+}
