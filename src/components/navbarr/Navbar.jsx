@@ -2,9 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes, FaShoppingBag, FaUser } from "react-icons/fa";
 import logo from "../../Assets/logo.png";
 import "./styles.css";
+import { MdAddChart } from "react-icons/md";
+import AuthModal from "../auth/AuthModal";
+import ProductUploadModal from "../AddProduct/ProductUploadModal";
 
 export const Navbar = ({ setIsCartOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openAuthModel, setOpenAuthModel] = useState(false);
+  const [openAddProductModel, setOpenAddProductModel] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const lastScrollTop = useRef(0);
 
@@ -25,46 +30,66 @@ export const Navbar = ({ setIsCartOpen }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <nav className={`navbar ${isNavbarVisible ? "visible" : "hidden"}`}>
-      <div>
-        <div className="navbar-logo">
-          <img src={logo} alt="Jumkas" />
-        </div>
+  const handleAuthModel = () => {
+    setOpenAuthModel(!openAuthModel);
+  };
+  const handleAddProduct = () => {
+    setOpenAddProductModel(!openAddProductModel);
+  };
 
-        <div className="navbar-left">
-          <button
-            className="menu-icon"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-          <div className="mobile-logo">
+  return (
+    <>
+      <nav className={`navbar ${isNavbarVisible ? "visible" : "hidden"}`}>
+        <div>
+          <div className="navbar-logo">
             <img src={logo} alt="Jumkas" />
           </div>
-        </div>
-      </div>
 
-      <div className={`nav-items ${isMenuOpen ? "open" : ""}`}>
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.name}
-            href={link.path}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {link.name}
-          </a>
-        ))}
-      </div>
-
-      <div className="nav-icons">
-        <FaUser className="icon" />
-        <div className="cart">
-          <FaShoppingBag onClick={() => setIsCartOpen(true)} className="icon" />
-          <span>(0)</span>
+          <div className="navbar-left">
+            <button
+              className="menu-icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+            <div className="mobile-logo">
+              <img src={logo} alt="Jumkas" />
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+
+        <div className={`nav-items ${isMenuOpen ? "open" : ""}`}>
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.name}
+              href={link.path}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        <div className="nav-icons">
+          <MdAddChart className="icon" onClick={handleAddProduct} />
+          <FaUser className="icon" onClick={handleAuthModel} />
+          <div className="cart">
+            <FaShoppingBag
+              onClick={() => setIsCartOpen(true)}
+              className="icon"
+            />
+            <span>(0)</span>
+          </div>
+        </div>
+      </nav>
+
+      {openAuthModel && (
+        <AuthModal isOpen={openAuthModel} onClose={handleAuthModel} />
+      )}
+      {openAddProductModel && (
+        <ProductUploadModal isOpen={openAddProductModel} onClose={handleAddProduct} />
+      )}
+    </>
   );
 };
 

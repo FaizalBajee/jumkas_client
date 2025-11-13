@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import "./Product.css";
 import Section from "../../common/Section";
 import img1 from "../../Assets/image1.png";
@@ -11,6 +11,7 @@ import img7 from "../../Assets/image2.png";
 import img8 from "../../Assets/image3.png";
 
 const Card = ({ title, img, price, des, onQuickShop }) => {
+
   const [isHovering, setIsHovering] = useState(false);
   const [isButtonHovering, setIsButtonHovering] = useState(false);
 

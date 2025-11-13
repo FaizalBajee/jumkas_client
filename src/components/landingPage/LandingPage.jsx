@@ -10,7 +10,7 @@ export default function LandingPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setHeroCount((prev) => (prev + 1) % 3);
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 

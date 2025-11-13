@@ -3,6 +3,7 @@ import { createBrowserRouter, useLocation } from "react-router-dom";
 import LandingPage from "../components/landingPage/LandingPage";
 import Layout from "../components/layout/Layout";
 import Product from "../components/product/Product";
+import { AuthProvider } from "../components/auth/authContext/AuthContext";
 
 // Custom scroll restoration function
 export const ScrollToTop = () => {
@@ -34,14 +35,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <PageWrapper>
-        <Layout>
-          <LandingPage />
-          <Product />
-        </Layout>
-      </PageWrapper>
+      <AuthProvider>
+        <PageWrapper>
+          <Layout>
+            <LandingPage />
+            <Product />
+          </Layout>
+        </PageWrapper>
+      </AuthProvider>
     ),
-  }
+  },
 ]);
 
 export default router;

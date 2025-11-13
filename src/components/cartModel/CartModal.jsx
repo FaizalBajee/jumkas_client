@@ -1,11 +1,19 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { X, Trash2, Plus, Minus } from "lucide-react"
-import img1 from "../../Assets/image1.png"
-import "./cartModal.css"
+import { useContext, useEffect, useState } from "react";
+import { X, Trash2, Plus, Minus } from "lucide-react";
+import img1 from "../../Assets/image1.png";
+import "./cartModal.css";
+import { AuthContext } from "../auth/authContext/AuthContext";
 
 const CartModal = ({ isOpen, onClose }) => {
+  const AuthData = useContext(AuthContext);
+
+  const handleClick = () => {
+    console.log("clicked");
+    console.log({AuthData});
+  };
+
   const [items, setItems] = useState([
     {
       id: 1,
@@ -21,25 +29,35 @@ const CartModal = ({ isOpen, onClose }) => {
       quantity: 2,
       image: "/cotton-shirt.png",
     },
-  ])
+  ]);
 
   const updateQuantity = (id, newQuantity) => {
-    if (newQuantity < 1) return
-    setItems(items.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item)))
-  }
+    if (newQuantity < 1) return;
+    setItems(
+      items.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
 
   const removeItem = (id) => {
-    setItems(items.filter((item) => item.id !== id))
-  }
+    setItems(items.filter((item) => item.id !== id));
+  };
 
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const tax = subtotal * 0.1
-  const total = subtotal + tax
+  const subtotal = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const tax = subtotal * 0.1;
+  const total = subtotal + tax;
 
   return (
     <>
       {/* Backdrop */}
-      <div className={`cart-backdrop ${isOpen ? "open" : ""}`} onClick={onClose} />
+      <div
+        className={`cart-backdrop ${isOpen ? "open" : ""}`}
+        onClick={onClose}
+      />
 
       {/* Modal */}
       <div className={`cart-modal ${isOpen ? "open" : ""}`}>
@@ -60,7 +78,7 @@ const CartModal = ({ isOpen, onClose }) => {
           ) : (
             items.map((item) => (
               <div key={item.id} className="cart-item">
-                <img src={ img1} alt={item.name} className="item-image" />
+                <img src={img1} alt={item.name} className="item-image" />
 
                 <div className="item-details">
                   <h3 className="item-name">{item.name}</h3>
@@ -68,16 +86,25 @@ const CartModal = ({ isOpen, onClose }) => {
                 </div>
 
                 <div className="item-controls">
-                  <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+                  <button
+                    className="qty-btn"
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  >
                     <Minus size={16} />
                   </button>
                   <span className="qty-value">{item.quantity}</span>
-                  <button className="qty-btn" onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                  <button
+                    className="qty-btn"
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  >
                     <Plus size={16} />
                   </button>
                 </div>
 
-                <button className="remove-btn" onClick={() => removeItem(item.id)}>
+                <button
+                  className="remove-btn"
+                  onClick={() => removeItem(item.id)}
+                >
                   <Trash2 size={18} />
                 </button>
               </div>
@@ -103,12 +130,14 @@ const CartModal = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <button className="checkout-btn">Proceed to Checkout</button>
+            <button onClick={handleClick} className="checkout-btn">
+              Proceed to Checkout
+            </button>
           </div>
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default CartModal
+export default CartModal;
