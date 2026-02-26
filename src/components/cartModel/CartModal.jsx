@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { X, Trash2, Plus, Minus } from "lucide-react";
 import img1 from "../../Assets/image1.png";
-import "./cartModal.css";
+import "./CartModal.css";
 import { AuthContext } from "../auth/authContext/AuthContext";
 
 const CartModal = ({ isOpen, onClose }) => {
