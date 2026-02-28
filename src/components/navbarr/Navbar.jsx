@@ -62,7 +62,7 @@ export const Navbar = ({ setIsCartOpen }) => {
           {NAV_LINKS.map((link) => (
             <a
               key={link.name}
-              href={link.path}
+              // href={link.path}
               onClick={() => setIsMenuOpen(false)}
             >
               {link.name}

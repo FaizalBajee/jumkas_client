@@ -27,7 +27,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const API_BASE = "http://localhost:8010/auth";
+  const API_BASE = import.meta.env.VITE_API_BASE;
 
   const success = (msg) => {
     messageApi.open({
@@ -42,7 +42,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     setLoading(true);
 
     try {
-      const endpoint = isLogin ? `${API_BASE}/login` : `${API_BASE}/register`;
+      const endpoint = isLogin ? `${API_BASE}/auth/login` : `${API_BASE}/auth/register`;
       const body = isLogin
         ? { email: formData.email, password: formData.password }
         : formData;
